@@ -302,9 +302,9 @@ def setup():
             'Add Docker registry support to travis?')
         if is_answer_yes:
             registry_domain = get_input(
-                'Type in the domain of the registry (e.g.: registry.walhall.io):')
+                'Type in the domain of the registry (e.g.: hub.docker.com):')
             registry_folder = get_input(
-                'Type the folder of the registry (e.g.: humanitec):')
+                'Type the folder of the registry (e.g.: buildly):')
             _configure_docker_registry(name_project, registry_domain,
                                        registry_folder)
 
