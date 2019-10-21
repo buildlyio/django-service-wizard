@@ -9,15 +9,17 @@ from .utils import (PrettyPrint, replace_text, add_after_variable,
 
 
 def _welcome_msg():
-    PrettyPrint.msg_blue('Welcome to Humanitec MicroService wizard!')
+    PrettyPrint.msg_blue('Welcome to the Buildly Core (Micro)Service wizard!')
     PrettyPrint.print_green(r"""
-  /\  /\_   _ _ __ ___   __ _ _ __ (_) |_ ___  ___
- / /_/ / | | | '_ ` _ \ / _` | '_ \| | __/ _ \/ __|
-/ __  /| |_| | | | | | | (_| | | | | | ||  __/ (__
-\/ /_/  \__,_|_| |_| |_|\__,_|_| |_|_|\__\___|\___|
+ _           _ _     _ _
+| |__  _   _(_) | __| | |_   _
+| '_ \| | | | | |/ _` | | | | |
+| |_) | |_| | | | (_| | | |_| |
+|_.__/ \__,_|_|_|\__,_|_|\__, |
+                         |___/
 
     """)
-    PrettyPrint.msg_blue('We will help you to set up a MicroService :)')
+    PrettyPrint.msg_blue('We will help you to set up a Micro or Right Size Service :)')
 
 
 def _create_project(name: str):
@@ -239,13 +241,13 @@ def _configure_docker(name_project: str):
     PrettyPrint.msg_blue('Docker support was successfully added')
 
 
-def _configure_drone_ci():
+def _configure_travis_ci():
     files_to_copy = [
         [os.path.join('requirements', 'ci.txt'),
          os.path.join('requirements', 'ci.txt'), 0o644],
-        [os.path.join('drone-ci', '.flake8'), '.flake8', 0o644],
-        [os.path.join('drone-ci', '.coveragerc'), '.coveragerc', 0o644],
-        [os.path.join('drone-ci', '.drone.yml'), '.drone.yml', 0o644],
+        [os.path.join('travis-ci', '.flake8'), '.flake8', 0o644],
+        [os.path.join('travis-ci', '.coveragerc'), '.coveragerc', 0o644],
+        [os.path.join('travis-ci', '.travis.yml'), '.travis.yml', 0o644],
         [os.path.join('scripts', 'run-tests.sh'),
          os.path.join('scripts', 'run-tests.sh'), 0o755],
         [os.path.join('scripts', 'wait-for-it.sh'),
@@ -260,19 +262,19 @@ def _configure_drone_ci():
             permission=permission
         )
 
-    PrettyPrint.msg_blue('Drone CI support was successfully added. Make sure '
-                         'to configure the needed permissions in the Drone CI '
+    PrettyPrint.msg_blue('travis CI support was successfully added. Make sure '
+                         'to configure the needed permissions in the travis CI '
                          'web administration panel')
 
 
 def _configure_docker_registry(name_project: str, registry_domain: str,
                                registry_folder: str):
     registry_url = os.path.join(registry_domain, registry_folder, name_project)
-    filename = os.path.join('drone-ci', '.drone-appendix.yml')
+    filename = os.path.join('travis-ci', '.travis-appendix.yml')
     content = get_template_content(filename)
     content = content.replace('{{ registry_domain }}', registry_domain)
     content = content.replace('{{ registry_url }}', registry_url)
-    append_to_file(filename='.drone.yml', text_to_append=content,
+    append_to_file(filename='.travis.yml', text_to_append=content,
                    permission=0o644)
 
 
@@ -291,13 +293,13 @@ def setup():
     if is_answer_yes_docker:
         _configure_docker(name_project)
 
-    is_answer_yes_drone = yes_or_no_default('Add Drone CI test support?', False)
-    if is_answer_yes_drone:
-        _configure_drone_ci()
+    is_answer_yes_travis = yes_or_no_default('Add travis CI test support?', False)
+    if is_answer_yes_travis:
+        _configure_travis_ci()
 
-    if is_answer_yes_docker and is_answer_yes_drone:
+    if is_answer_yes_docker and is_answer_yes_travis:
         is_answer_yes = yes_or_no(
-            'Add Docker registry support to Drone?')
+            'Add Docker registry support to travis?')
         if is_answer_yes:
             registry_domain = get_input(
                 'Type in the domain of the registry (e.g.: registry.walhall.io):')

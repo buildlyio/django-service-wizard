@@ -221,7 +221,7 @@ class SetupDroneTest(TestCase):
         os.chdir(self.name_project)
         _configure_drone_ci()
 
-        for filename in ('.drone.yml', '.flake8', '.coveragerc',
+        for filename in ('.travis.yml', '.flake8', '.coveragerc',
                          os.path.join('scripts', 'run-tests.sh'),
                          os.path.join('requirements', 'ci.txt')):
             with open(filename, 'r') as file_tpl:
@@ -248,7 +248,7 @@ class SetupDockerRegistryTest(TestCase):
     def test_configure_docker_registry(self):
         _configure_docker_registry(
             'test_service', 'registry.tola.io', 'toladata')
-        with open('.drone.yml', 'r') as file_tpl:
+        with open('.travis.yml', 'r') as file_tpl:
             content = file_tpl.read()
             self.assertIn("""\
   build-docker-image-tag:

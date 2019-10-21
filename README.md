@@ -1,8 +1,6 @@
-[![Build Status](http://drone.humanitec.io/api/badges/Humanitec/django-service-wizard/status.svg)](http://drone.humanitec.io/Humanitec/django-service-wizard)
-
 # django-service-wizard
 
-A Django (Micro)Service wizard for the Humanitec Platform Walhall. This will
+A Django (Micro)Service wizard for the Buildly Core. This will
 help you to setup your project from scratch.
 
 The Django version installed is specified in `requirements/base.txt`. The
