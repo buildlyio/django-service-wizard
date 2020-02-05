@@ -2,3 +2,4 @@
 test_service
 .pytest_cache
 .drone.yml
+.idea
