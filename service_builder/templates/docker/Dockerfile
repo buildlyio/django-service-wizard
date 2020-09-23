@@ -13,9 +13,6 @@ RUN pip install -r requirements/production.txt --no-cache-dir
 
 ADD . /code
 
-# Collecting static files
-RUN ./scripts/run-collectstatic.sh
-
 RUN apk del .build-deps
 
 EXPOSE 8080

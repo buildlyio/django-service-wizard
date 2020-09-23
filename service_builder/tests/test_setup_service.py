@@ -186,16 +186,13 @@ class SetupDockerTest(TestCase):
 
         filename_content_list = (
             ('Dockerfile', 'ENTRYPOINT'),
-            ('Dockerfile.nginx', 'COPY ./static /usr/share/nginx/html/static'),
             ('docker-compose.yml', 'container_name'),
             ('docker-entrypoint.sh',
              'gunicorn {}.wsgi --config {}/gunicorn_conf.py'.format(
                  self.name_project, self.name_project)),
-            ('docker-entrypoint-dev.sh',
+            ('run-standalone-dev.sh',
              'gunicorn {}.wsgi --config {}/gunicorn_conf.py --reload'.format(
                  self.name_project, self.name_project)),
-            (os.path.join('scripts', 'run-collectstatic.sh'),
-             'python manage.py collectstatic --no-input'),
             (os.path.join('scripts', 'run-tests.sh'),
              'python manage.py makemigrations --check --dry-run'),
         )

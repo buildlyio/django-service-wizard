@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    entrypoint: bash /code/docker-entrypoint-dev.sh
+    entrypoint: bash /code/run-standalone-dev.sh
     container_name: {{ name_project }}
     image: {{ name_project }}
     volumes:

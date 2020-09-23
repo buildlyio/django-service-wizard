@@ -214,12 +214,10 @@ def _create_app(name_project: str, name_app: str):
 def _configure_docker(name_project: str):
     src_dest_list = (
         [os.path.join('docker', 'Dockerfile'), '.', 0o644],
-        [os.path.join('docker', 'Dockerfile.nginx'), '.', 0o644],
         [os.path.join('docker', 'docker-compose.yml'), '.', 0o644],
         [os.path.join('docker', '.dockerignore'), '.', 0o644],
         [os.path.join('docker', 'docker-entrypoint.sh'), '.', 0o755],
-        [os.path.join('docker', 'docker-entrypoint-dev.sh'), '.', 0o755],
-        [os.path.join('scripts', 'run-collectstatic.sh'), 'scripts', 0o755],
+        [os.path.join('docker', 'run-standalone-dev.sh'), '.', 0o755],
         [os.path.join('scripts', 'run-tests.sh'), 'scripts', 0o755],
         [os.path.join('scripts', 'wait-for-it.sh'), 'scripts', 0o755],
     )
