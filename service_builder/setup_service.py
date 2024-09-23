@@ -196,6 +196,8 @@ schema_view = get_schema_view(
 
 def _create_app(name_project: str, name_app: str):
     main_dir = os.getcwd()
+    # comment move out of the main directory first then create the app directory
+    os.chdir(os.path.join('..'))
     os.chdir(name_project)
     try:
         management.call_command('startapp', name_app)
